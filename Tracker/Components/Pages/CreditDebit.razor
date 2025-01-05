@@ -1,0 +1,35 @@
+﻿@page "/creditdebit"
+<div class="form-login">
+    <form class="text-center" @onsubmit="Submit">
+        <img class="mb-4" src="/appicon.png" alt="" height="72">
+        <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" @bind="transaction.balance" placeholder="Balance" />
+            <label for="floatingInput">Balance</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" @bind="transaction.source" placeholder="Source" />
+            <label for="floatingInput">Source</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" @bind="transaction.transactionType" placeholder="Transaction Type" />
+            <label for="floatingInput">Transaction Type</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" @bind="transaction.tag" placeholder="Tag" />
+            <label for="floatingInput">Tag</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" @bind="transaction.remark" placeholder="Remark" />
+            <label for="floatingInput">Remark</label>
+        </div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger">@ErrorMessage</div>
+        }
+        <button class="btn btn-lg btn-primary">
+            Submit
+        </button>
+    </form>
+</div>

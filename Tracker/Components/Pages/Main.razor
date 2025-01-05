@@ -1,0 +1,68 @@
+﻿@page "/main"
+@using DataModel.Model;
+<h2>Transactions List</h2>
+
+<button class="btn btn-lg btn-secondary" @onclick="ShowLogoutConfirmation" style="position: fixed; top: 20px; right: 20px;">
+    Logout
+</button>
+<!-- Users List Table -->
+@if (transaction.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Transaction Type</th>
+                <th>Source</th>
+                <th>Tag</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in transaction)
+            {
+                <tr>
+                    <td>@transaction.transactionType</td>
+                    <td>@transaction.source</td>
+                    <td>@transaction.tag</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteTransaction(transaction.transactionId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No users found.</p>
+}
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="alert alert-info">
+        @Message
+    </div>
+}
+@if (IslogOut)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: auto;">
+        <div class="modal-dialog" role="document" style="margin-top: 20%; margin-left: auto; margin-right: auto; max-width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Logout</h5>
+                    <button type="button" class="close" @onclick="HideLogoutConfirmation">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to logout?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="HideLogoutConfirmation">No</button>
+                    <button type="button" class="btn btn-primary" @onclick="Logout">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
