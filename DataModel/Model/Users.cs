@@ -6,5 +6,7 @@ namespace DataModel.Model
         public String Username { get; set; }
 
         public String Password { get; set; }
+
+        public Money Money { get; set; }
     }
 }

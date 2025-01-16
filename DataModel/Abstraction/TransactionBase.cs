@@ -5,7 +5,7 @@ namespace DataModel.Abstractions
 {
     public class TransactionBase
     {
-        protected static readonly string FilePath = Path.Combine(FileSystem.AppDataDirectory, "transaction.jason");
+        protected static readonly string FilePath = Path.Combine(FileSystem.AppDataDirectory, "transaction.json");
 
         protected List<Transaction> LoadTransaction()
         {
@@ -16,7 +16,7 @@ namespace DataModel.Abstractions
             return JsonSerializer.Deserialize<List<Transaction>>(json) ?? new List<Transaction>();
         }
 
-        protected void SaveUsers(List<Transaction> transactions)
+        protected void SaveTransaction(List<Transaction> transactions)
         {
             var json = JsonSerializer.Serialize(transactions);
 

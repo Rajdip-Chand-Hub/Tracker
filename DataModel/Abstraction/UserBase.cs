@@ -6,7 +6,7 @@ namespace DataModel.Abstractions
 {
     public class UserBase
     {
-        protected static readonly string FilePath = Path.Combine(FileSystem.AppDataDirectory, "users.jason");
+        protected static readonly string FilePath = Path.Combine(FileSystem.AppDataDirectory, "users.json");
 
         protected List<Users> LoadUsers()
         {

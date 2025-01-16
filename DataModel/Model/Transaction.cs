@@ -8,11 +8,13 @@
 
         public string source { get; set; } = string.Empty; 
 
-        public string transactionType { get; set; } = string.Empty ;
+        public TransactionType transactionType { get; set; }
 
-        public string tag { get; set; } = string.Empty;
+        public Tags tag{ get; set; }   
 
         public string remark { get; set; } = string .Empty;
+
+        public DateOnly created { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     }
 }

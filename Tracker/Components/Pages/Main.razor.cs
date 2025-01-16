@@ -2,37 +2,39 @@ using Microsoft.AspNetCore.Components;
 using DataModel.Model;
 
 
+
 namespace Tracker.Components.Pages
 {
     public partial class Main : ComponentBase
     {
-        private List<Transaction> transaction = new List<Transaction>();
+        private bool isAsc = true;
+
+        private bool isFilter = true;
+
+        private List<Transaction> transaction = new();
+        private List<Transaction> transactions = new();
 
         private string Message = string.Empty;
 
         private bool IslogOut { get; set; } = false;
         protected override void OnInitialized()
         {
-            GetAllTransactions();
+            transaction = TransactionService.GetAllTransactions();
+            transactions = TransactionService.GetAllTransactions();
+
         }
-        private void Logout()
+        private void addTransaction()
         {
-            Nav.NavigateTo("/login");
+            Nav.NavigateTo("/creditdebit");
+        }
+        private void NavTransaction(Guid transactionId)
+        {
+            Nav.NavigateTo($"/updatetransaction{transactionId}");
         }
 
-        private async Task<List<Transaction>> GetAllTransactions()
+        private void backHome()
         {
-            try
-            {
-                transaction = TransactionService.GetAllTransactions();
-
-                return transaction;
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            Nav.NavigateTo("/home");
         }
 
         private async Task DeleteTransaction(Guid transaction)
@@ -41,15 +43,32 @@ namespace Tracker.Components.Pages
 
             Message = result ? "Successfully Deleted" : "Error Deleting User";
         }
-
-        private void ShowLogoutConfirmation()
+        private void sortingTransactionAsc()
         {
-            IslogOut = true;
+            if(isAsc)
+            { 
+                transaction = transaction.OrderBy(t => t.created).ToList();
+                isAsc = false;
+            }
+            else
+            {
+                transaction = transaction.OrderByDescending(t => t.created).ToList();
+                isAsc = true;
+            }
         }
-
-        private void HideLogoutConfirmation()
+        private void fillterTransactions()
         {
-            IslogOut = false;
+            if (isFilter)
+            {
+                transaction = transactions.Where(f => f.transactionType == TransactionType.Credit).ToList();
+                isFilter = false;
+            }
+            else 
+            {
+                transaction = transactions.Where(f => f.transactionType == TransactionType.Debit).ToList();
+                isFilter = true;
+            }
+            
         }
     }
 

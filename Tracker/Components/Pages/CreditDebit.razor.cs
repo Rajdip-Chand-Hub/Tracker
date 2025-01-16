@@ -6,16 +6,50 @@ namespace Tracker.Components.Pages
     {
         private string? ErrorMessage;
 
+        private string? InsufficientBalance;
+
         public Transaction transaction { get; set; } = new();
+
+        private void backTransaction()
+        {
+            Nav.NavigateTo("/main");
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            totalAmount = TransactionService.TotalAmount();
+        }
+        private int totalAmount;
         private async void Submit()
         {
-            if (await TransactionService.CreateTransaction(transaction))
+            if (TransactionType.Debit == transaction.transactionType)
             {
-                Nav.NavigateTo("/main");
+                if (totalAmount >= transaction.balance)
+                {
+                    if (await TransactionService.CreateTransaction(transaction))
+                    {
+                        Nav.NavigateTo("/main");
+                    }
+                    else
+                    {
+                        ErrorMessage = "Invalid Input";
+                    }
+                }
+                else
+                {
+                    InsufficientBalance = "Not Sufficient Balance";
+                }
             }
-            else
+            else 
             {
-                ErrorMessage = "Invalid Input";
+                if (await TransactionService.CreateTransaction(transaction))
+                {
+                    Nav.NavigateTo("/main");
+                }
+                else
+                {
+                    ErrorMessage = "Invalid Input";
+                }
             }
 
         }

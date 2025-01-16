@@ -1,0 +1,66 @@
+﻿@page "/debtmain"
+
+@using DataModel.Model;
+<h2>Debt</h2>
+
+<button class="btn btn-lg btn-secondary" @onclick="fillterTransactions" style="position: fixed; top: 20px; right: 325px;">
+    Filter
+</button>
+
+<button class="btn btn-lg btn-secondary" @onclick="sortingTransactionAsc" style="position: fixed; top: 20px; right: 240px;">
+    Sort
+</button>
+
+<button class="btn btn-lg btn-secondary" @onclick="addDebt" style="position: fixed; top: 20px; right: 110px;">
+    Add Debt
+</button>
+<!-- Users List Table -->
+@if (debt.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Balance</th>
+                <th>Source</th>
+                <th>Tag</th>
+                <th>Status</th>
+                <th>Remark</th>
+                <th>Debt Takken</th>
+                <th>Debt Due</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var debt in debt)
+            {
+                <tr>
+                    <td>@debt.debtBalance</td>
+                    <td>@debt.debtSource</td>
+                    <td>@debt.debtTag</td>
+                    <td>@debt.debtStatus</td>
+                    <td>@debt.debtRemark</td>
+                    <td>@debt.debtTakken</td>
+                    <td>@debt.debtDue</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DebtDelete(debt.debtId)">Delete</button>
+                        <button class="btn btn-danger" @onclick="() => updateDebt(debt.debtId)">Update</button>
+                        <button class="btn btn-danger" @onclick="() => changeStatus(debt.debtId)">Cleared</button>
+                    </td>
+                </tr>
+            }   
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Debt found.</p>
+}
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="alert alert-info">
+        @Message
+    </div>
+}
+<button class="btn btn-lg btn-secondary" @onclick="backHome" style="position: fixed; top: 20px; right: 20px;">
+    Back
+</button>

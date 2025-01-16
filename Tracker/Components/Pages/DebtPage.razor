@@ -1,4 +1,4 @@
-﻿@page "/creditdebit"
+﻿@page "/debtpage"
 
 <style>
 
@@ -16,8 +16,7 @@
         min-height: 100vh;
     }
 
-    .form-label
-    {
+    .form-label {
         color: black;
         font-weight: bold;
     }
@@ -27,7 +26,7 @@
         width: 480px;
         background: #FAFAFA;
         color: black;
-        border-radius: 10px; 
+        border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 
@@ -63,42 +62,45 @@
 </style>
 
 <div class="Login-Section">
-    <form action="" @onsubmit="Submit">
-        <h1>Transactions Form</h1>
+    <form action="" @onsubmit="DebtSubmit">
+        <h1>Debt Form</h1>
         <div class="input-box">
             <label class="form-label">Balance</label>
-            <input type="text" class="form-control" @bind="transaction.balance" required>
+            <input type="text" class="form-control" @bind="debt.debtBalance" required>
         </div>
         <div class="input-box">
             <label class="form-label">Source</label>
-            <input type="text" class="form-control" @bind="transaction.source" required>
-        </div>
-
-        <div class="input-box">
-            <label class="form-label">Transaction Type</label>
-            <select type="text" class="form-control" @bind="transaction.transactionType" required>
-                @foreach (var transaction in Enum.GetValues(typeof(TransactionType)))
-                {
-                    <option value="@transaction">@transaction</option>
-                }
-            </select>
+            <input type="text" class="form-control" @bind="debt.debtSource" required>
         </div>
         <div class="input-box">
             <label class="form-label">Tag</label>
-            <select type="text" class="form-control" @bind="transaction.tag" required>
-                @foreach (var tag in Enum.GetValues(typeof(Tags)))
+            <select type="text" class="form-control" @bind="debt.debtTag" required>
+                @foreach (var tag in Enum.GetValues(typeof(DebtTags)))
                 {
                     <option value="@tag">@tag</option>
                 }
             </select>
         </div>
         <div class="input-box">
-            <label class="form-label">Date</label>
-            <input type="date" class="form-control" @bind="transaction.created" required>
+            <label class="form-label">Status</label>
+            <select type="text" class="form-control" @bind="debt.debtStatus" required>
+                @foreach (var status in Enum.GetValues(typeof(DebtStatus)))
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+        </div>
+        <div class="input-box">
+            <label class="form-label">Debt Tekken</label>
+            <input type="date" class="form-control" @bind="debt.debtTakken" required>
+        </div>
+        <div class="input-box">
+            <label class="form-label">Debt Due</label>
+            <input type="date" class="form-control" @bind="debt.debtDue" required>
         </div>
         <div class="input-box">
             <label class="form-label">Remark</label>
-            <input type="text" class="form-control" @bind="transaction.remark" required>
+            <input type="text" class="form-control" @bind="debt.debtRemark" required>
         </div>
         @if (!string.IsNullOrEmpty(ErrorMessage))
         {
@@ -110,7 +112,7 @@
         }
         <button type="submit" class="log-btn">Submit</button>
     </form>
-    <button type="button" class="log-btn" @onclick="backTransaction">
+    <button type="button" class="log-btn" @onclick="backDebt">
         Back
     </button>
 </div>

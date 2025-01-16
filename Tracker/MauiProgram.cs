@@ -21,6 +21,8 @@ namespace Tracker
 
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddScoped<IDebtService, DebtService>();
+
             builder.Services.AddMudServices();
 
             builder.Services.AddScoped<ITransactionService, TransactionService>();

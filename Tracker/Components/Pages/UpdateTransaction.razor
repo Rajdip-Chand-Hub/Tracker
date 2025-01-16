@@ -1,4 +1,4 @@
-﻿@page "/creditdebit"
+﻿@page "/updatetransaction{transactionId:guid}"
 
 <style>
 
@@ -16,8 +16,7 @@
         min-height: 100vh;
     }
 
-    .form-label
-    {
+    .form-label {
         color: black;
         font-weight: bold;
     }
@@ -27,7 +26,7 @@
         width: 480px;
         background: #FAFAFA;
         color: black;
-        border-radius: 10px; 
+        border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 
@@ -63,7 +62,7 @@
 </style>
 
 <div class="Login-Section">
-    <form action="" @onsubmit="Submit">
+    <form action="" @onsubmit="UpdateForm">
         <h1>Transactions Form</h1>
         <div class="input-box">
             <label class="form-label">Balance</label>
@@ -75,7 +74,7 @@
         </div>
 
         <div class="input-box">
-            <label class="form-label">Transaction Type</label>
+            <label class="form-label">Currency</label>
             <select type="text" class="form-control" @bind="transaction.transactionType" required>
                 @foreach (var transaction in Enum.GetValues(typeof(TransactionType)))
                 {
@@ -100,17 +99,9 @@
             <label class="form-label">Remark</label>
             <input type="text" class="form-control" @bind="transaction.remark" required>
         </div>
-        @if (!string.IsNullOrEmpty(ErrorMessage))
-        {
-            <div class="alert alert-danger">@ErrorMessage</div>
-        }
-        @if (!string.IsNullOrEmpty(InsufficientBalance))
-        {
-            <div class="alert alert-danger">@InsufficientBalance</div>
-        }
-        <button type="submit" class="log-btn">Submit</button>
+        <button type="submit" class="log-btn">Update</button>
     </form>
-    <button type="button" class="log-btn" @onclick="backTransaction">
+    <button type="button" class="log-btn" @onclick="backHome">
         Back
     </button>
 </div>

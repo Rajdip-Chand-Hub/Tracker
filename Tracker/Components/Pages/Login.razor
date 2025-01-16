@@ -1,27 +1,108 @@
 ﻿@page "/login"
-<div class="form-login">
-    <form class="text-center" @onsubmit="HandleLogin">
-        <img class="mb-4" src="/appicon.png" alt="" height="72">
-        <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+<style>
 
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" @bind="User.Username" placeholder="Username" />
-            <label for="floatingInput">Username</label>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .form-label {
+        color: black;
+        font-weight: bold;
+    }
+
+    .Login-Section {
+        padding: 30px 40px;
+        width: 420px;
+        background: #FAFAFA;
+        color: black;
+        border-radius: 10px; 
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+        .Login-Section h1 {
+            font-size: 36px;
+            text-align: center;
+            font-weight: 600;
+
+        }
+
+        .Login-Section .input-box {
+            width: 100%;
+            height: 50px;
+            margin: 30px 0;
+            position: relative;
+            color: white;
+        }
+
+    .forget {
+        margin-left: 5px;
+        margin-bottom: 10px;
+    }
+
+        .forget a {
+            text-decoration: none;
+            color: black;
+        }
+
+            .forget a:hover {
+                text-decoration: underline;
+            }
+
+    .log-btn {
+        width: 100%;
+        height: 45px;
+        background: white;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        cursor: pointer;
+        color: black;
+        font-weight: 600;
+        font-size: larger;
+        margin-top: 10px;
+    }
+</style>
+<div class="Login-Section">
+    <form action="" @onsubmit="HandleLogin">
+        <h1>Login</h1>
+        <div class="input-box">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" @bind="User.Username" required>
+        </div>
+        <div class="input-box">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" @bind="User.Password" required>
         </div>
 
-        <!-- Password Input -->
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" @bind="User.Password" placeholder="Password" />
-            <label for="floatingPassword">Password</label>
-        </div>
+        <div class="input-box">
+            <label class="form-label">Currency</label>
+            <select type="text" class="form-control">
+                @foreach (var cur in Enum.GetValues(typeof(Money)))
+                {
+                    <option value="@cur">@cur</option>
+                }
+            </select>
 
+        </div>
         @if (!string.IsNullOrEmpty(ErrorMessage))
         {
-            <div class="alert alert-danger">@ErrorMessage</div>
+           <div class="alert alert-danger">@ErrorMessage</div>
         }
-        <button class="btn btn-lg btn-primary">
-            Login
-        </button>
+        <div class="forget">
+            <a href="#">Forget Password</a>
+        </div>
+        <button type="submit" class="log-btn">Login</button>
     </form>
 </div>
 
