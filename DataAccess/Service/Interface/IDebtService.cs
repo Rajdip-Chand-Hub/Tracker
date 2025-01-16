@@ -6,6 +6,7 @@ namespace DataAccess.Service.Interface
 {
     public interface IDebtService
     {
+        // Creating required Methods
         List<Debt> GetAllDebt();
 
         Task<bool> CreateDebt(Debt debt);

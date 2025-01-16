@@ -7,20 +7,21 @@ namespace DataModel.Abstractions
     {
         protected static readonly string FilePath = Path.Combine(FileSystem.AppDataDirectory, "transaction.json");
 
-        protected List<Transaction> LoadTransaction()
+        protected List<Transaction> LoadTransaction() // Method to load list of debts from JSON file
         {
-            if (!File.Exists(FilePath)) return new List<Transaction>();
+            if (!File.Exists(FilePath)) return new List<Transaction>(); // Checking if the file exists
+
 
             var json = File.ReadAllText(FilePath);
 
-            return JsonSerializer.Deserialize<List<Transaction>>(json) ?? new List<Transaction>();
+            return JsonSerializer.Deserialize<List<Transaction>>(json) ?? new List<Transaction>(); // Deserializes the JSON string into a list
         }
 
-        protected void SaveTransaction(List<Transaction> transactions)
+        protected void SaveTransaction(List<Transaction> transactions) // Method to load list of debts from JSON file
         {
-            var json = JsonSerializer.Serialize(transactions);
+            var json = JsonSerializer.Serialize(transactions); // Serializes the list into JSON string
 
-            File.WriteAllText(FilePath, json);
+            File.WriteAllText(FilePath, json); // Write the JSON string to file
         }
     }
 }

@@ -3,6 +3,7 @@ namespace DataAccess.Service.Interface
 {
     public interface ITransactionService
     {
+        // Creating required Methods
         List<Transaction> GetAllTransactions();
 
         Task<bool> CreateTransaction(Transaction transaction);
