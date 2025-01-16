@@ -2,25 +2,25 @@ using DataModel.Model;
 
 namespace Tracker.Components.Pages
 {
-    public partial class CreditDebit
+    public partial class CreditDebit // Partial class of CreditDebit component
     {
-        private string? ErrorMessage;
+        private string? ErrorMessage; // Private field to store error message
 
-        private string? InsufficientBalance;
+        private string? InsufficientBalance; // Private field to store insufficient balance message
 
-        public Transaction transaction { get; set; } = new();
+        public Transaction transaction { get; set; } = new(); // Public property to hold the transaction details
 
-        private void backTransaction()
+        private void backTransaction() // Method to navigate to main page
         {
             Nav.NavigateTo("/main");
         }
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync() // Initializing components
         {
             totalAmount = TransactionService.TotalAmount();
         }
         private int totalAmount;
-        private async void Submit()
+        private async void Submit() // Method to handle submission of transaction
         {
             if (TransactionType.Debit == transaction.transactionType)
             {

@@ -5,18 +5,18 @@ namespace Tracker.Components.Pages
 {
     public partial class DebtPage
     {
-        private string? ErrorMessage;
+        private string? ErrorMessage; // Stores error message
 
-        private string? InsufficientBalance;
+        private string? InsufficientBalance; // Stores insufficient balance message 
 
-        public Debt debt { get; set; } = new();
+        public Debt debt { get; set; } = new(); 
 
-        private void backDebt()
+        private void backDebt() 
         {
             Nav.NavigateTo("/debtmain");
         }
 
-        private async void DebtSubmit()
+        private async void DebtSubmit() // Method to create new debt
         {
 
             if (await DebtService.CreateDebt(debt))
